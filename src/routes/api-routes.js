@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-// const Task = require('../models/task'); //Schema de documento de inserto o actualizacion mongodb
+const Task = require('../models/prospecto'); //Schema de documento de inserto o actualizacion mongodb
 
 //select * from [tabla]
 router.get('/', async (req, res) => {

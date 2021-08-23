@@ -12,10 +12,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 //routes
-// app.use('/api/tasks', require('./routes/task-routes'));
+app.use('/api/system', require('./routes/api-routes'));
 
 //Front end, se necesita compilar para ver cambios
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'frontend', 'public')));
 
 //star server 
 app.listen(app.get('port'), () => {
