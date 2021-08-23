@@ -1,37 +1,74 @@
 const express = require('express');
 const router = express.Router();
-const Task = require('../models/prospecto'); //Schema de documento de inserto o actualizacion mongodb
-
+const Prospecto = require('../models/prospecto'); //Schema de documento de inserto o actualizacion mongodb
+ 
 //select * from [tabla]
 router.get('/', async (req, res) => {
-    const tasks = await Task.find() ; 
-    res.json(tasks);
+    const listaProspectos = await Prospecto.find() ; 
+    res.json(listaProspectos);
 });
+
 //select id from [tabla]
 router.get('/:id', async (req, res) => {
-    const task = await Task.findById(req.params.id);
-    res.json(task);
+    const listaProspectos = await Prospecto.findById(req.params.id);
+    res.json(listaProspectos);
 });
+
 //insert into 
 router.post('/', async (req, res) => {
-    const title = req.body.titulo;
-    const description = req.body.descripcion;;
-    const task = new Task({title, description})
-    await task.save();
-    res.json({status: `tarea guardada`});
+    try {
+      const {
+        nombreNegocio,
+        telefono,
+        direccion,
+        primeraLlamada,
+        segundaLlamada,
+        recordatorios,
+        clasficacion,
+      } = req.body;
+      const nuevoProspecto = new Prospecto({
+        nombreNegocio,
+        telefono,
+        direccion,
+        primeraLlamada,
+        segundaLlamada,
+        recordatorios,
+        clasficacion,
+      });
+      await nuevoProspecto.save();
+      res.json({ status: `Agregado` });
+    } catch (err) {
+      console.log(err);
+    }
 });
+
 //update
-router.put('/:id', async (req, res) => { 
-    const title = req.body.titulo;
-    const description = req.body.descripcion;;
-    const newTask = {title, description};
-    await Task.findByIdAndUpdate(req.params.id, newTask);
-    res.json({status: "tarea actualizada"});
+router.put('/:id', async (req, res) => {  
+    const {
+      nombreNegocio,
+      telefono,
+      direccion,
+      primeraLlamada,
+      segundaLlamada,
+      recordatorios,
+      clasficacion,
+    } = req.body;
+    await Prospecto.findByIdAndUpdate(req.params.id, {
+        nombreNegocio,
+        telefono,
+        direccion,
+        primeraLlamada,
+        segundaLlamada,
+        recordatorios,
+        clasficacion,
+      });
+    res.json({status: "datos actualizados"});
 });
+
 //delete
 router.delete('/:id', async (req, res) => { 
-    await Task.findByIdAndRemove(req.params.id);
-    res.json({status: `tarea ${req.params.id} borrada`});
+    await Prospecto.findByIdAndRemove(req.params.id);
+    res.json({status: `prospecto ${req.params.id} borrado`});
 })
 
 module.exports = router;

@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 const {Schema} = mongoose;
 
 const prospectoSchema = new Schema({
-    nombreNegocio: {type: String, require: true},
-    telefono: {type: Number, require: true},
-    direccion: {type: mongoose.Schema.Types.Mixed, require: true},
-    primeraLlamada: {type: Date, require: true},
-    segundaLlamada: {type: Date, require: true},
-    recordatorios: {type: mongoose.Schema.Types.Mixed, default: null},
-    clasficacion: {type: String, require: true},
+    nombreNegocio: {type: String, require: true, default: ''},
+    telefono: {type: Number, require: true, default: ''},
+    direccion: {type: String, require: true, default: ''},
+    primeraLlamada: {type: Date, require: true, default: Date.now},
+    segundaLlamada: {type: Date, default: null},
+    recordatorios: {type: String, default: ''},
+    clasficacion: {type: String, require: true, default: ''},
 
 })
-
+ 
 module.exports = mongoose.model('Prospecto', prospectoSchema);
