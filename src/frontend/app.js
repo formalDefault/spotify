@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import NavBar from "./components/Navbar"; 
 import Aos from "aos";
-import Tarjeta from "./components/Tarjeta";
+import Pendientes from "./components/Pendientes";
 
 function app() {
   useEffect(() => {
@@ -11,9 +11,9 @@ function app() {
   return (
     <div>
       <NavBar />
-      <div className="py-20 px-4">
-        <Tarjeta />
-      </div> 
+      <div className="py-5 xl:py-20 px-4"> 
+        <Pendientes />
+      </div>
     </div>
   );
 }
