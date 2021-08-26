@@ -8,7 +8,7 @@ const prospectoSchema = new Schema({
     primeraLlamada: {type: Date, require: true, default: Date.now},
     segundaLlamada: {type: Date, default: null},
     recordatorios: {type: String, default: ''},
-    clasficacion: {type: String, require: true, default: ''},
+    clasificacion: {type: String, require: true, default: ''},
 
 })
  
