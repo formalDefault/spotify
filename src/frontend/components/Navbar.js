@@ -1,6 +1,7 @@
-import React, {useState} from 'react' 
+import React, {useState} from 'react';
 import { Link } from "react-scroll"; 
-import Menu from './Menu'  
+import Menu from './Menu';
+import imgs from './img/imagenes';
 
 export default function NavBar(props) {
     const [count, setCount] = useState(false);
@@ -12,7 +13,7 @@ export default function NavBar(props) {
         window.location.assign('/');
     }
     return (
-        <div data-aos="fade-down" className="Menu xl:h-auto xl:py-4 xl:bg-opacity-10 fixed h-11 z-50 py-1  w-screen bg-black text-white">  
+        <div data-aos="fade-down" className="Menu xl:h-12 xl:py-4 xl:bg-opacity-10 fixed h-11 z-50 py-1 w-screen bg-black text-white">  
             <div className="px-4">
                 <div className="xl:hidden float-right relative text-2xl"><i onClick={handleChange} className="fas fa-bars iconMenu"></i></div>
                 <div className="hidden xl:block float-right">  
@@ -41,7 +42,9 @@ export default function NavBar(props) {
                             Contacto
                     </Link> 
                 </div>
-                <img onClick={reload} src={props.Logotipo} className="w-24 cursor-pointer" alt="logotipo_negocio" />    
+                <div className="py-1">
+                    <img onClick={reload} src={imgs.Logotipo} className="w-4 cursor-pointer" alt="logotipo_negocio" />   
+                </div> 
             </div>
             {count ? <div className="xl:hidden"><Menu/></div>: null} 
         </div>  
