@@ -8,9 +8,9 @@ function Pendientes() {
     ];   
 
     const Colores = (clasificacion) => {
-      const rojo = "bg-red-700 text-white ";
+      const rojo = "bg-red-600 text-white ";
       const verde = "bg-green-500 text-white ";
-      const normal = "bg-gray-100 shadow-md text-black";
+      const normal = "bg-yellow-400 text-white";
       if (clasificacion == "descartado") {
         return rojo;
       } else if (clasificacion == "posible") {
@@ -23,11 +23,11 @@ function Pendientes() {
     const TarjetasResponsive = () => {
       return (
         <div>
-          <div className=" xl:hidden p-1 grid grid-cols-1 gap-4">
+          <div className="p-1 grid grid-cols-1 xl:grid-cols-4 gap-4">
             {lista.map((i) => { ;
-              let estilo = `shadow-md w-full p-2 rounded-lg ${Colores(i.clasificacion)}`; 
+              let estilo = `duration-500 hover:shadow-2xl cursor-pointer border w-full p-2 rounded-lg ${Colores(i.clasificacion)}`; 
               return (
-                <div key={i._id}>
+                <div data-aos="zoom-in" key={i._id}>
                   <div className={estilo}>
                     <div className="flex justify-between">
                       <b>{i.nombreNegocio}</b>
@@ -86,8 +86,7 @@ function Pendientes() {
     const sinPendientes = () => {  
       if (lista.length != 0) {
         return (
-          <div>
-            {Tabla()}
+          <div> 
             {TarjetasResponsive()}
           </div>
         );

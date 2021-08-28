@@ -1,5 +1,5 @@
 import React from 'react'    
-import { Link } from "react-scroll"; 
+import { NavLink } from "react-router-dom"; 
 
 function Menu() {
     const Opciones = () => {
@@ -8,40 +8,28 @@ function Menu() {
             <div className="bg-black h-screen float-right w-5/12 text-right relative">
                 <ul>
                     <li className="py-2 px-4">
-                        <Link to="inicio"
-                            spy={true}
-                            smooth={true}
-                            offset={0}
-                            duration={750} >
+                        <NavLink exact to="/" >
                                 <div>
                                     <i className="fas fa-home float-left"></i>
                                     Inicio
                                 </div>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="py-2 px-4">
-                        <Link to="planes"
-                            spy={true}
-                            smooth={true}
-                            offset={100}
-                            duration={750}>
+                        <NavLink exact to="/prospectos">
                                 <div>
                                     <i className="fas fa-shopping-cart float-left"></i>
-                                    Planes
+                                    Prospectos
                                 </div>
-                        </Link>
+                        </NavLink>
                     </li>
                     <li className="py-2 px-4">
-                        <Link to="contacto"
-                            spy={true}
-                            smooth={true}
-                            offset={200}
-                            duration={750}>
+                        <NavLink exact to="/contacto">
                                 <div>
                                     <i className="fas fa-phone float-left"></i>
                                     Contacto
                                 </div> 
-                        </Link>
+                        </NavLink>
                     </li>
                 </ul>
             </div>  

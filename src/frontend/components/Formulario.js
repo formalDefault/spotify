@@ -5,6 +5,8 @@ import { NavLink } from 'react-router-dom';
 export default function Formulario() {   
     
     const [showMessage, setShowMessage] = useState(false); 
+    
+    const fields = "outline-none text-black bg-white border-b-2 border-blue-600 rounded-lg w-full h-12 mt-2 px-4"
 
     const Formulario = () => {
         return (
@@ -16,8 +18,7 @@ export default function Formulario() {
                     direccion: '',
                     pLlamada: '' ,
                     sLlamada: '' ,
-                    recordatorio: '' ,
-                    clasificacion: '' 
+                    recordatorio: ''  
                 }}
 
                 //validacion de los input
@@ -30,6 +31,13 @@ export default function Formulario() {
                     } else if(!/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/.test(valores.telefono)) {
                         errores.telefono = 'Favor de ingresar solo numeros del 0 al 9';
                     } 
+                    if(!valores.negocio) { 
+                        errores.negocio = 'ingresa un nombre';
+                    }
+                    if(!valores.direccion) { 
+                        errores.direccion = 'ingresa una direccion';
+                    } 
+
                     return errores;
                 }}
 
@@ -39,15 +47,14 @@ export default function Formulario() {
                 }}
             >
                 {( {errors} ) => (
-                <div data-aos="fade-right" className="z-40 "> 
-                    {/* <div className="xl:hidden text-white pb-1 px-4 rounded-full border border-yellow-600 relative text-3x text-center float-right top-16 mr-4 "><b>x</b></div> */}
-                        <div className="bg-blue-600 pt-20 xl:bg-transparent xl:pt-40 pb-8 w-screen"> 
-                            <div className="w-5/6 rounded-2xl text-white bg-black bg-opacity-70 m-auto p-4 shadow-2xl xl:w-4/12 xl:bg-black xl:py-12">
-                                {/* <span className="hidden xl:block relative float-right bottom-8 bg-red-500 px-4 pb-1 rounded-full cursor-pointer"><b>x</b></span> */}
+                <div className="z-40 "> 
+                        <div data-aos="fade-right" className="pt-20 mb-8">   
+                            <div className="w-5/6 border rounded-md text-black m-auto p-4 shadow-xl "> 
+                                <NavLink exact to="/prospectos"><span className="hidden xl:block relative float-right text-white bg-red-500 px-4 pb-1 rounded-full cursor-pointer"><b>x</b></span></NavLink>
                                 <div className="text-center mb-4">
                                     <b>Registrar prospecto</b>
                                 </div>
-                                <Form> 
+                                <Form className="grid grid-cols-1 xl:grid-cols-3 gap-8 "> 
                                     <div className=" mb-5">
                                         <label htmlFor="Negocio">Negocio:</label>
                                         <Field  
@@ -55,7 +62,7 @@ export default function Formulario() {
                                             id="negocio"  
                                             type="text" 
                                             placeholder="Nombre del negocio" 
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
+                                            className={fields}
                                         />
                                         <ErrorMessage name="negocio" component={() => (<div className="text-red-500">{errors.negocio}</div>)}/> 
                                     </div>
@@ -66,7 +73,7 @@ export default function Formulario() {
                                             id="telefono"  
                                             type="text" 
                                             placeholder="Numero de telefono" 
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
+                                            className={fields}
                                         />
                                         <ErrorMessage name="telefono" component={() => (<div className="text-red-500">{errors.telefono}</div>)}/> 
                                     </div>
@@ -77,7 +84,7 @@ export default function Formulario() {
                                             id="direccion"  
                                             type="text" 
                                             placeholder="Direccion del negocio" 
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
+                                            className={fields}
                                         />
                                         <ErrorMessage name="direccion" component={() => (<div className="text-red-500">{errors.direccion}</div>)}/> 
                                     </div>
@@ -88,7 +95,7 @@ export default function Formulario() {
                                             id="pLlamada"  
                                             type="text" 
                                             placeholder="dia/mes/año" 
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
+                                            className={fields}
                                         />
                                         <ErrorMessage name="pLlamada" component={() => (<div className="text-red-500">{errors.pLlamada}</div>)}/> 
                                     </div>
@@ -99,7 +106,7 @@ export default function Formulario() {
                                             id="sLlamada"  
                                             type="text" 
                                             placeholder="dia/mes/año" 
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
+                                            className={fields}
                                         />
                                         <ErrorMessage name="sLlamada" component={() => (<div className="text-red-500">{errors.sLlamada}</div>)}/> 
                                     </div>
@@ -110,31 +117,16 @@ export default function Formulario() {
                                             id="recordatorio"  
                                             type="text" 
                                             placeholder="Recordatorio(opcional)" 
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
+                                            className={fields}
                                         />
                                         <ErrorMessage name="recordatorio" component={() => (<div className="text-red-500">{errors.recordatorio}</div>)}/> 
                                     </div>
-                                    <div className="mb-5">
-                                        <label htmlFor="estatus">Estatus:</label>
-                                        <Field  
-                                            name="estatus"
-                                            id="estatus"  
-                                            as="select"  
-                                            className="outline-none text-white bg-black bg-opacity-90 border-b-2 border-yellow-600 rounded-lg w-full h-12 mt-2 px-4"
-                                        >
-                                            <option value="seguimiento">Seguimiento</option>
-                                            <option value="rechazado">Rechazado</option>
-                                            <option value="cita">Cita</option>
-                                        </Field>
-                                        <ErrorMessage name="estatus" component={() => (<div className="text-red-500">{errors.estatus}</div>)}/> 
+                                    <div className="xl:col-start-2">
+                                        <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto">Registrar</button>
                                     </div>
-                                    <div>
-
-                                    </div>
-                                    <button type="submit" className="py-1 w-full rounded-xl px-8 bg-gradient-to-r from-pink-700 to-yellow-500">Enviar mensaje</button>
                                 </Form>
                             </div>
-                     </div>
+                        </div>
                 </div>
                 )}
             </Formik>
@@ -146,7 +138,7 @@ export default function Formulario() {
             <div data-aos="fade-right" className="fixed z-40 ">   
                     <div className="bg-black pt-28 xl:bg-transparent xl:pt-40 pb-8 w-screen"> 
                         <div className="w-5/6 rounded-2xl text-white bg-blue-600  m-auto p-4 shadow-2xl xl:w-4/12 xl:py-6 ">
-                        <div className="text-white pb-1 px-4 rounded-full bg-red-500 relative text-3x float-right top-0 "><NavLink exact to="/"><b>x</b></NavLink></div> 
+                        <div className="text-white pb-1 px-4 rounded-full bg-red-500 relative text-3x float-right top-0 "><NavLink exact to="/prospectos"><b>x</b></NavLink></div> 
                             <b>Mensaje enviado</b> 
                         </div>
                     </div>  
