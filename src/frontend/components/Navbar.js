@@ -2,12 +2,14 @@ import React, {useState} from 'react';
 import { NavLink } from 'react-router-dom'
 import Menu from './Menu';
 import imgs from './img/imagenes';
+import { AppContext } from "./provider";
 
-export default function NavBar(props) {
-    const [count, setCount] = useState(false);
+export default function NavBar() {
+
+    const [state, setState] = useContext(AppContext);  
 
     const handleChange = () => {
-        setCount(current => !current);
+        setState({Menu:current => !current});
     } 
     const reload = () => {
         window.location.assign('/');
@@ -34,7 +36,7 @@ export default function NavBar(props) {
                     <img onClick={reload} src={imgs.Logotipo} className="w-4 cursor-pointer" alt="logotipo_negocio" />   
                 </div> 
             </div>
-            {count ? <div className="xl:hidden"><Menu/></div>: null} 
+            {state.Menu ? <div className="xl:hidden"><Menu/></div>: null} 
         </div>  
     )
 }  

@@ -29,15 +29,16 @@ const listaProspectos = () => {
         <div className="p-1 xl:px-4 grid grid-cols-1 xl:grid-cols-4 gap-4">
           {lista.map((i) => {
             let estilo = `shadow-md w-full p-2 rounded-lg border text-black duration-500 hover:shadow-2xl hover:border-yellow-500 cursor-pointer`;
+            let ruta = `/detalles/?id=${i._id}&negocio=${i.negocio}&telefono=${i.telefono}&direccion=${i.direccion}`;
             return (
-              <div data-aos="zoom-in" key={i._id}>
+              <NavLink exact to={ruta} data-aos="zoom-in" key={i._id}>
                 <div className={estilo}>
                   <div className="flex justify-between">
                     <b>{i.nombreNegocio}</b> 
                     <h1>{i.telefono}</h1>
                   </div>
                 </div>
-              </div>
+              </NavLink>
             );
           })}
         </div>

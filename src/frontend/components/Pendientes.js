@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { NavLink } from 'react-router-dom'
 
 function Pendientes() {
     const lista = [
@@ -22,19 +23,22 @@ function Pendientes() {
  
     const TarjetasResponsive = () => {
       return (
-        <div>
+        <div className="px-4">
           <div className="p-1 grid grid-cols-1 xl:grid-cols-4 gap-4">
-            {lista.map((i) => { ;
+            {lista.map((i) => { 
               let estilo = `duration-500 hover:shadow-2xl cursor-pointer border w-full p-2 rounded-lg ${Colores(i.clasificacion)}`; 
+              let ruta = `/pendientes`;
               return (
-                <div data-aos="zoom-in" key={i._id}>
-                  <div className={estilo}>
-                    <div className="flex justify-between">
-                      <b>{i.nombreNegocio}</b>
-                      <i className="p-1 fas fa-times"></i>
+                <NavLink key={i._id} exact to={ruta}> 
+                  <div data-aos="zoom-in">
+                    <div className={estilo}>
+                      <div className="flex justify-between">
+                        <b>{i.nombreNegocio}</b>
+                        <i className="p-1 fas fa-times"></i>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </NavLink>
               );
             })}
           </div>
