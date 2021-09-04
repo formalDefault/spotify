@@ -1,14 +1,12 @@
-import React, {useState} from 'react'    
-import { NavLink } from "react-router-dom";  
-import { AppContext } from './provider';
+import React, { useState } from 'react'    
+import { NavLink } from "react-router-dom";   
 
-function Menu() { 
+function Menu(props) { 
 
-    const [state, setState] = useContext(AppContext);
+    const [state, setState] = useState(props.estado);
 
-    const ocultar = () => {
-        
-        setState({Menu:current => !current});
+    const ocultar = () => { 
+        setState(current => !current); 
     }
 
     const Opciones = () => {
@@ -48,7 +46,7 @@ function Menu() {
 
     return (
         <div>
-            {state.Menu ? Opciones() : null}
+            {state ? <div>{Opciones()}</div> : null} 
         </div>
     )
 }

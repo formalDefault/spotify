@@ -50,7 +50,7 @@ export default function Formulario() {
                 <div className="z-40 "> 
                         <div data-aos="fade-right" className="pt-20 mb-8">   
                             <div className="w-5/6 border rounded-md text-black m-auto p-4 shadow-xl "> 
-                                <NavLink exact to="/prospectos"><span className="hidden xl:block relative float-right text-white bg-red-500 px-4 pb-1 rounded-full cursor-pointer"><b>x</b></span></NavLink>
+                                <NavLink exact to="/"><span className="hidden xl:block relative float-right text-white bg-red-500 px-4 pb-1 rounded-full cursor-pointer"><b>x</b></span></NavLink>
                                 <div className="text-center mb-4">
                                     <b>Registrar prospecto</b>
                                 </div>

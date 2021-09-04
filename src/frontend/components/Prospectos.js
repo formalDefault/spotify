@@ -13,7 +13,7 @@ const barraOpciones = () => {
         <div className="grid grid-cols-2 border-b w-screen "> 
           <NavLink exact to="/agregar" className="text-center border-r px-4 py-1 duration-500 hover:text-white hover:bg-yellow-500"><i className="fas fa-plus">Agregar</i></NavLink>
           <div className="text-center px-4 py-1">
-            <i className="fas fa-filter">Filtrar</i>
+            <i className="fas fa-filter">Filtrar (proximamente)</i>
           </div>
         </div>
         <div className="py-2 text-center text-black text-2xl">
@@ -29,7 +29,7 @@ const listaProspectos = () => {
         <div className="p-1 xl:px-4 grid grid-cols-1 xl:grid-cols-4 gap-4">
           {lista.map((i) => {
             let estilo = `shadow-md w-full p-2 rounded-lg border text-black duration-500 hover:shadow-2xl hover:border-yellow-500 cursor-pointer`;
-            let ruta = `/detalles/?id=${i._id}&negocio=${i.negocio}&telefono=${i.telefono}&direccion=${i.direccion}`;
+            let ruta = `/detalles/?id=${i._id}`;
             return (
               <NavLink exact to={ruta} data-aos="zoom-in" key={i._id}>
                 <div className={estilo}>
