@@ -1,15 +1,16 @@
-import React, {useState} from 'react';
+import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom'
-// import Menu from './Menu';
+import Menu from './Menu';
 import imgs from './img/imagenes'; 
+import { ContextStates } from './context/Estados';
 
 export default function NavBar() {
 
-    // const [state, setState] = useState(false); 
+    const { stateMenu, setStateMenu } = useContext(ContextStates);
 
-    // const handleChange = () => {
-    //     setState(current => !current);   
-    // } 
+    const handleChange = () => {
+        setStateMenu(current => !current);   
+    } 
     const reload = () => {
         window.location.assign('/'); 
     }
@@ -22,20 +23,16 @@ export default function NavBar() {
                     className="p-1 cursor-pointer border-b-2 duration-500 hover:border-yellow-500 mr-12 ">
                         Inicio
                     </NavLink> 
-                    <NavLink to="/prospectos" 
+                    <NavLink to="/pendientes" 
                     className="p-1 cursor-pointer border-b-2 duration-500 hover:border-yellow-500 mr-12 ">
-                        Prospectos
-                    </NavLink>
-                    <NavLink to="/contacto" 
-                    className="p-1 cursor-pointer border-b-2 duration-500 hover:border-yellow-500 mr-12 ">
-                        Contacto
+                        Pendientes
                     </NavLink> 
                 </div> */}
                 <div className="py-1">
                     <img onClick={reload} src={imgs.Logotipo} className="w-4 cursor-pointer" alt="logotipo_negocio" />   
                 </div> 
             </div>
-            {/* {state ? <div className="xl:hidden"><Menu estado={state}/></div>: null}   Activacion del menu */}
+            {stateMenu ? <div className="xl:hidden"><Menu/></div>: null}   
         </div>  
     )
 }  

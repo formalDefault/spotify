@@ -12,7 +12,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 //routes
-// app.use('/api/system', require('./routes/api-routes'));
+app.use('/api/system', require('./routes/api-routes'));
 
 //Front end, se necesita compilar para ver cambios
 app.use(express.static(path.join(__dirname, 'frontend', 'public')));

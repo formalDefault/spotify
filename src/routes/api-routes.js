@@ -16,16 +16,13 @@ router.get('/:id', async (req, res) => {
 
 //insert into 
 router.post('/', async (req, res) => {
-    try {
-      const {
-        nombreNegocio,
-        telefono,
-        direccion,
-        primeraLlamada,
-        segundaLlamada,
-        recordatorios,
-        clasficacion,
-      } = req.body;
+    try { 
+      const nombreNegocio = req.body.nombreNegocio;
+      const telefono = req.body.telefono;
+      const direccion = req.body.direccion;
+      const primeraLlamada = req.body.primeraLlamada;
+      const segundaLlamada = req.body.segundaLlamada;
+      const recordatorios = req.body.recordatorios;
       const nuevoProspecto = new Prospecto({
         nombreNegocio,
         telefono,

@@ -1,21 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 // import Pendientes from './Pendientes'
 import { useLocation, NavLink } from 'react-router-dom'
-
-const lista = [
-    {"nombreNegocio":"Taller","telefono":145345,"direccion":"su puta madre. jal #9","segundaLlamada":null,"recordatorios":"gdfg","clasificacion":"descartado","_id":"61241d9c64b0e561s0ba0fda","primeraLlamada":null,"__v":0},
-    {"nombreNegocio":"Taller","telefono":245345,"direccion":"su puta madre. jal #9","segundaLlamada":null,"recordatorios":"gdfg","clasificacion":"","_id":"61241d9c650e561s0ba0fda","primeraLlamada":null,"__v":0},
-    {"nombreNegocio":"pasteleria","telefono":345345,"direccion":"su puta madre. jal #9","segundaLlamada":null,"recordatorios":"llamar al cliente entre las 4 y 5 de la tarde del dia martes 25/08/21","clasificacion":"posible","_id":"61241d9c64b0e561f0ba0fda","primeraLlamada":'24/28/2021',"__v":0}
-  ]; 
-const buscador = (id) => lista.find(i => i._id === id);
-
-const useQuery = () => {return new URLSearchParams(useLocation().search);};
+import { ContextStates } from "./context/Estados";   
 
 function vistaTarjeta(props) {
+
+    const { listaProspectos } = useContext(ContextStates);  
+
+    const buscador = (id) => listaProspectos.find(i => i._id === id);
+
+    const useQuery = () => {return new URLSearchParams(useLocation().search);};
+
     let query = useQuery();
+
     let tarjeta = buscador(query.get("id"));
-    // let tarjeta = {"nombreNegocio":"pasteleria","telefono":345345,"direccion":"su puta madre. jal #9","segundaLlamada":null,"recordatorios":"llamar al cliente entre las 4 y 5 de la tarde del dia martes 25/08/21","clasificacion":"posible","_id":"61241d9c64b0e561f0ba0fda","primeraLlamada":'24/28/2021',"__v":0};
+
     const estilo = 'text-black bg-white py-2 px-4 rounded-md border-b-2 border-yellow-500 shadow-md';
+    
     const telefono = () => window.open(`tel:+52${tarjeta.telefono}`);
 
     const TarjetaEstilo = () => {

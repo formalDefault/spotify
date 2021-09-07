@@ -1,11 +1,11 @@
 import React, {useState} from 'react'   
 import { Formik, Form, Field, ErrorMessage } from 'formik' //npm i formik --save 
 import { NavLink } from 'react-router-dom';  
+import Axios from 'axios'; 
  
-export default function Formulario() {   
-    
-    const [showMessage, setShowMessage] = useState(false); 
-    
+export default function Formulario() {    
+    const URL = window.location.origin; 
+
     const fields = "outline-none text-black bg-white border-b-2 border-blue-600 rounded-lg w-full h-12 mt-2 px-4"
 
     const Formulario = () => {
@@ -16,9 +16,9 @@ export default function Formulario() {
                     negocio: '',
                     telefono: '',
                     direccion: '',
-                    pLlamada: '' ,
-                    sLlamada: '' ,
-                    recordatorio: ''  
+                    primeraLlamada: '' ,
+                    segundaLlamada: '' ,
+                    recordatorios: ''  
                 }}
 
                 //validacion de los input
@@ -42,15 +42,22 @@ export default function Formulario() {
                 }}
 
                 //funcion del boton de enviar
-                onSubmit={(valores) => { 
-                    console.log(`registrado ${valores}`);
+                onSubmit={(valores) => {  
+                    Axios.post(`${URL}/api/system`,{
+                        nombreNegocio: valores.negocio,
+                        telefono: valores.telefono,
+                        direccion: valores.direccion,
+                        primeraLlamada: valores.primeraLlamada,
+                        segundaLlamada: valores.segundaLlamada,
+                        recordatorios: valores.recordatorios
+                    }).then(() => console.log('guardado')); 
                 }}
             >
                 {( {errors} ) => (
                 <div className="z-40 "> 
                         <div data-aos="fade-right" className="pt-20 mb-8">   
                             <div className="w-5/6 border rounded-md text-black m-auto p-4 shadow-xl "> 
-                                <NavLink exact to="/"><span className="hidden xl:block relative float-right text-white bg-red-500 px-4 pb-1 rounded-full cursor-pointer"><b>x</b></span></NavLink>
+                                <NavLink exact to="/"><span className=" relative xl:float-right text-white bg-red-500 px-4 pb-1 rounded-full cursor-pointer"><b>x</b></span></NavLink>
                                 <div className="text-center mb-4">
                                     <b>Registrar prospecto</b>
                                 </div>
@@ -89,37 +96,37 @@ export default function Formulario() {
                                         <ErrorMessage name="direccion" component={() => (<div className="text-red-500">{errors.direccion}</div>)}/> 
                                     </div>
                                     <div className="mb-5">
-                                        <label htmlFor="pLlamada">Fecha de primera llamada:</label>
+                                        <label htmlFor="primeraLlamada">Fecha de primera llamada:</label>
                                         <Field  
-                                            name="pLlamada"
-                                            id="pLlamada"  
+                                            name="primeraLlamada"
+                                            id="primeraLlamada"  
                                             type="text" 
                                             placeholder="dia/mes/año" 
                                             className={fields}
                                         />
-                                        <ErrorMessage name="pLlamada" component={() => (<div className="text-red-500">{errors.pLlamada}</div>)}/> 
+                                        <ErrorMessage name="primeraLlamada" component={() => (<div className="text-red-500">{errors.primeraLlamada}</div>)}/> 
                                     </div>
                                     <div className="mb-5">
                                         <label htmlFor="sLlamada">Fecha de segunda llamada:</label>
                                         <Field  
-                                            name="sLlamada"
-                                            id="sLlamada"  
+                                            name="segundaLlamada"
+                                            id="segundaLlamada"  
                                             type="text" 
                                             placeholder="dia/mes/año" 
                                             className={fields}
                                         />
-                                        <ErrorMessage name="sLlamada" component={() => (<div className="text-red-500">{errors.sLlamada}</div>)}/> 
+                                        <ErrorMessage name="segundaLlamada" component={() => (<div className="text-red-500">{errors.segundaLlamada}</div>)}/> 
                                     </div>
                                     <div className="mb-5">
                                         <label htmlFor="recordatorio">Recordatorio:</label>
                                         <Field  
-                                            name="recordatorio"
-                                            id="recordatorio"  
+                                            name="recordatorios"
+                                            id="recordatorios"  
                                             type="text" 
                                             placeholder="Recordatorio(opcional)" 
                                             className={fields}
                                         />
-                                        <ErrorMessage name="recordatorio" component={() => (<div className="text-red-500">{errors.recordatorio}</div>)}/> 
+                                        <ErrorMessage name="recordatorios" component={() => (<div className="text-red-500">{errors.recordatorios}</div>)}/> 
                                     </div>
                                     <div className="xl:col-start-2">
                                         <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto">Registrar</button>

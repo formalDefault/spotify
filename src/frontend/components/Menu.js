@@ -1,12 +1,13 @@
-import React, { useState } from 'react'    
+import React, { useContext } from 'react'    
 import { NavLink } from "react-router-dom";   
+import { ContextStates } from './context/Estados';
 
-function Menu(props) { 
+function Menu() { 
 
-    const [state, setState] = useState(props.estado);
+    const { stateMenu, setStateMenu } = useContext(ContextStates);
 
     const ocultar = () => { 
-        setState(current => !current); 
+        setStateMenu(current => !current); 
     }
 
     const Opciones = () => {
@@ -23,21 +24,13 @@ function Menu(props) {
                         </NavLink>
                     </li>
                     <li className="py-2 px-4" onClick={ocultar}>
-                        <NavLink exact to="/prospectos" >
+                        <NavLink exact to="/pendientes" >
                                 <div>
                                     <i className="fas fa-shopping-cart float-left"></i>
-                                    Prospectos
+                                    Pendientes
                                 </div>
                         </NavLink>
-                    </li>
-                    <li className="py-2 px-4" onClick={ocultar}>
-                        <NavLink exact to="/contacto" >
-                                <div>
-                                    <i className="fas fa-phone float-left"></i>
-                                    Contacto
-                                </div> 
-                        </NavLink>
-                    </li>
+                    </li> 
                 </ul>
             </div>  
         </div>  
@@ -46,7 +39,7 @@ function Menu(props) {
 
     return (
         <div>
-            {state ? <div>{Opciones()}</div> : null} 
+            {stateMenu ? <div>{Opciones()}</div> : null} 
         </div>
     )
 }
