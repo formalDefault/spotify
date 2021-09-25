@@ -1,7 +1,7 @@
 module.exports = {
-    entry: './src/frontend/index.js',
+    entry: './frontend/index.js',
     output: {
-        path: __dirname + '/src/frontend/public',
+        path: __dirname + '/frontend/public',
         filename: 'bundle.js'
     },
     module: {

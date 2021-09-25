@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "npm run webpack",
     "build": "npm run webpack",
-    "developer": "nodemon src/index.js",
+    "developer": "nodemon backend/index.js",
     "dev": "src/index.js",
     "webpack": "webpack --mode development --watch"
   },
@@ -24,6 +24,7 @@
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
     "formik": "^2.2.9",
