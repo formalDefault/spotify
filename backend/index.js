@@ -20,6 +20,4 @@ app.use('/api/system', require('./routes/api-routes'));
 app.use(express.static(path.join(process.cwd(), 'frontend', 'public')));
 
 //star server 
-app.listen(app.get('port'), () => {
-    console.log(`servidor ${app.get('port')} iniciado`);
-});
+app.listen(app.get('port'));
