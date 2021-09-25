@@ -14,7 +14,10 @@ app.use(morgan('dev'));
 app.use(express.json());
 
 //routes
-app.use('/api/system', require('./routes/api-routes')); 
+app.use('/api/system', require('./routes/api-routes'));
+
+//Front end, se necesita compilar para ver cambios
+app.use(express.static(path.join(process.cwd(), 'frontend', 'public')));
 
 //star server 
 app.listen(app.get('port'), () => {
