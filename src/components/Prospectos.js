@@ -4,7 +4,7 @@ import { ContextStates } from "./context/Estados";
 import Axios from 'axios';  
 
 function Prospectos() {
-  const URL = window.location.origin;
+  const URL = 'http://localhost:3000';
   const { listaProspectos, setListaProspectos } = useContext(ContextStates);  
 
   useEffect(() => {
