@@ -10,7 +10,7 @@ export default function Formulario() {
     const {setStateFormulario} = useContext(ContextStates);  
     const {listaProspectos} = useContext(ContextStates);  
     const URL =APIDATA; 
-    const fields = "outline-none text-black bg-white border-b-2 border-blue-600 rounded-lg w-full h-12 mt-2 px-4"
+    const fields = "outline-none text-black bg-white border-b-2 border-yellow-500 rounded-lg w-full h-12 mt-2 px-4"
 
     const Formulario = () => {
         return (
@@ -28,7 +28,7 @@ export default function Formulario() {
                     
                     //validacion para telefono
                     if (!valores.telefono) {
-                        errores.telefono = 'ingresa un numero de telefono para poder contactarte';
+                        errores.telefono = 'ingresa un numero de telefono';
                     } else if(!/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/.test(valores.telefono)) {
                         errores.telefono = 'Favor de ingresar solo numeros del 0 al 9';
                     } 
@@ -102,9 +102,9 @@ export default function Formulario() {
                                     </div>
                                     <div className="xl:col-start-2">
                                         { stateFormulario ? 
-                                            <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto"><i className="animate-spin fas fa-circle-notch"></i></button>
+                                            <button type="submit" className="py-1 w-full rounded-xl px-8 bg-yellow-500 hover:bg-yellow-400 duration-500 text-white xl:m-auto"><i className="animate-spin fas fa-circle-notch"></i></button>
                                         :
-                                            <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto">Registrar</button>
+                                            <button type="submit" className="py-1 w-full rounded-xl px-8 bg-yellow-500 hover:bg-yellow-400 duration-500 text-white xl:m-auto">Registrar</button>
                                         } 
                                     </div>
                                 </Form>

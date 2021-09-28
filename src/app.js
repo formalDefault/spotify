@@ -17,7 +17,7 @@ function app() {
     <ContextStates>  
       <Router>
         <NavBar />
-        <div className="py-5 xl:py-16">
+        <div className="py-5 xl:py-16 ">
           <Switch> 
               <Route exact path="/pendientes" component={Pendientes} />
               <Route exact path="/agregar" component={Formulario} />

@@ -30,7 +30,7 @@ function vistaTarjeta(props) {
     const TarjetaEstilo = () => {
         return (
             <div data-aos="zoom-in"> 
-                <div className="border-b shadow-xl bg-gray-50 mt-6 p-4 xl:w-8/12 xl:m-auto xl:rounded-2xl xl:border xl:bg-white xl:mt-24">
+                <div className="border-b shadow-xl bg-gray-50 mt-6 p-4 xl:w-8/12 xl:m-auto xl:rounded-2xl xl:border xl:bg-white xl:mt-14">
                     <div className="text-center pb-4">
                         <b>Prospecto</b>
                         <NavLink exact to="/" className="bg-red-500 text-white px-2 rounded-full float-right"><i className=" fas fa-times "></i></NavLink>
