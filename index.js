@@ -11,5 +11,5 @@ app.use(express.static(path.join(__dirname, 'src', 'public')));
 
 //star server 
 app.listen(app.get('port'), () => {
-    console.log(`servidor backend ${app.get('port')} iniciado`);
+    console.log(`servidor frontend ${app.get('port')} iniciado`);
 }); 

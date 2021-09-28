@@ -1,11 +1,15 @@
-import React, {useState} from 'react'   
+import React, { useContext } from 'react'   
 import { Formik, Form, Field, ErrorMessage } from 'formik' //npm i formik --save 
 import { NavLink } from 'react-router-dom';  
 import Axios from 'axios'; 
+import { ContextStates } from "./context/Estados"; 
  
-export default function Formulario() {    
-    const URL = window.location.origin; 
-
+export default function Formulario() {   
+    const { APIDATA } = useContext(ContextStates);  
+    const {stateFormulario} = useContext(ContextStates);  
+    const {setStateFormulario} = useContext(ContextStates);  
+    const {listaProspectos} = useContext(ContextStates);  
+    const URL =APIDATA; 
     const fields = "outline-none text-black bg-white border-b-2 border-blue-600 rounded-lg w-full h-12 mt-2 px-4"
 
     const Formulario = () => {
@@ -13,12 +17,9 @@ export default function Formulario() {
             <Formik 
                 //valores de los campos del formulario
                 initialValues = {{ 
-                    negocio: '',
+                    nombreNegocio: '',
                     telefono: '',
-                    direccion: '',
-                    primeraLlamada: '' ,
-                    segundaLlamada: '' ,
-                    recordatorios: ''  
+                    direccion: '' 
                 }}
 
                 //validacion de los input
@@ -31,8 +32,8 @@ export default function Formulario() {
                     } else if(!/^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$/.test(valores.telefono)) {
                         errores.telefono = 'Favor de ingresar solo numeros del 0 al 9';
                     } 
-                    if(!valores.negocio) { 
-                        errores.negocio = 'ingresa un nombre';
+                    if(!valores.nombreNegocio) { 
+                        errores.nombreNegocio = 'ingresa un nombre';
                     }
                     if(!valores.direccion) { 
                         errores.direccion = 'ingresa una direccion';
@@ -42,15 +43,19 @@ export default function Formulario() {
                 }}
 
                 //funcion del boton de enviar
-                onSubmit={(valores) => {  
-                    Axios.post(`${URL}/api/system`,{
-                        nombreNegocio: valores.negocio,
-                        telefono: valores.telefono,
-                        direccion: valores.direccion,
-                        primeraLlamada: valores.primeraLlamada,
-                        segundaLlamada: valores.segundaLlamada,
-                        recordatorios: valores.recordatorios
-                    }).then(() => console.log('guardado')); 
+                onSubmit={(valores) => { 
+                    let coincidencias = listaProspectos.filter(i => i.telefono === valores.telefono)
+                    if(coincidencias.length > 0) {
+                        alert('El numero ya esta registrado en otro negocio')
+                    } else {
+                      var body = valores;
+                      Axios.post(`${URL}/api/system`, body)
+                          .then(() => {
+                              setStateFormulario(true);
+                              window.location.assign('/');
+                          })
+                          .catch((err) => { console.log(err)});
+                    } 
                 }}
             >
                 {( {errors} ) => (
@@ -65,13 +70,13 @@ export default function Formulario() {
                                     <div className=" mb-5">
                                         <label htmlFor="Negocio">Negocio:</label>
                                         <Field  
-                                            name="negocio"
-                                            id="negocio"  
+                                            name="nombreNegocio"
+                                            id="nombreNegocio"  
                                             type="text" 
                                             placeholder="Nombre del negocio" 
                                             className={fields}
                                         />
-                                        <ErrorMessage name="negocio" component={() => (<div className="text-red-500">{errors.negocio}</div>)}/> 
+                                        <ErrorMessage name="nombreNegocio" component={() => (<div className="text-red-500">{errors.nombreNegocio}</div>)}/> 
                                     </div>
                                     <div className=" mb-5">
                                         <label htmlFor="Telefono">Telefono:</label>
@@ -95,41 +100,12 @@ export default function Formulario() {
                                         />
                                         <ErrorMessage name="direccion" component={() => (<div className="text-red-500">{errors.direccion}</div>)}/> 
                                     </div>
-                                    <div className="mb-5">
-                                        <label htmlFor="primeraLlamada">Fecha de primera llamada:</label>
-                                        <Field  
-                                            name="primeraLlamada"
-                                            id="primeraLlamada"  
-                                            type="text" 
-                                            placeholder="dia/mes/año" 
-                                            className={fields}
-                                        />
-                                        <ErrorMessage name="primeraLlamada" component={() => (<div className="text-red-500">{errors.primeraLlamada}</div>)}/> 
-                                    </div>
-                                    <div className="mb-5">
-                                        <label htmlFor="sLlamada">Fecha de segunda llamada:</label>
-                                        <Field  
-                                            name="segundaLlamada"
-                                            id="segundaLlamada"  
-                                            type="text" 
-                                            placeholder="dia/mes/año" 
-                                            className={fields}
-                                        />
-                                        <ErrorMessage name="segundaLlamada" component={() => (<div className="text-red-500">{errors.segundaLlamada}</div>)}/> 
-                                    </div>
-                                    <div className="mb-5">
-                                        <label htmlFor="recordatorio">Recordatorio:</label>
-                                        <Field  
-                                            name="recordatorios"
-                                            id="recordatorios"  
-                                            type="text" 
-                                            placeholder="Recordatorio(opcional)" 
-                                            className={fields}
-                                        />
-                                        <ErrorMessage name="recordatorios" component={() => (<div className="text-red-500">{errors.recordatorios}</div>)}/> 
-                                    </div>
                                     <div className="xl:col-start-2">
-                                        <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto">Registrar</button>
+                                        { stateFormulario ? 
+                                            <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto"><i className="animate-spin fas fa-circle-notch"></i></button>
+                                        :
+                                            <button type="submit" className="py-1 w-full rounded-xl px-8 bg-blue-600 text-white xl:m-auto">Registrar</button>
+                                        } 
                                     </div>
                                 </Form>
                             </div>
@@ -161,3 +137,18 @@ export default function Formulario() {
     
 }
 
+async function registrar(data){
+    const { APIDATA } = useContext(ContextStates);  
+    const URL =APIDATA; 
+
+    data = $(data).serialize();
+    const res = await fetch(`${URL}/api/system`, {
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        method: "POST"
+    });
+    const jsonData = await res.json();
+    return jsonData.data;
+}
