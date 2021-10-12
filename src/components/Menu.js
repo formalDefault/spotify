@@ -18,16 +18,16 @@ function Menu() {
                     <li className="py-2 px-4"  onClick={ocultar}>
                         <NavLink exact to="/" >
                                 <div>
-                                    <i className="fas fa-home float-left"></i>
-                                    Inicio
+                                    <i className="far fa-calendar-alt float-left"></i>
+                                    Pendientes
                                 </div>
                         </NavLink>
                     </li>
                     <li className="py-2 px-4" onClick={ocultar}>
-                        <NavLink exact to="/pendientes" >
+                        <NavLink exact to="/prospectos" >
                                 <div>
-                                    <i className="fas fa-shopping-cart float-left"></i>
-                                    Pendientes
+                                    <i className="fas fa-phone float-left"></i>
+                                    Prospectos
                                 </div>
                         </NavLink>
                     </li> 

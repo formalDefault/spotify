@@ -4,23 +4,26 @@ import { ContextStates } from "./context/Estados";
 import Axios from 'axios';  
 
 function Prospectos() {
+  
   const { listaProspectos, setListaProspectos } = useContext(ContextStates);  
   const { filterOpc, setFilter } = useContext(ContextStates);  
   const { showFilter, setShowFilter } = useContext(ContextStates);  
+  const { stateLoading, setStateLoading } = useContext(ContextStates);  
   const { APIDATA } = useContext(ContextStates);   
   const URL = APIDATA;
-
-  const mostrarFiltro = () => {
-    setShowFilter(current => !current)
-  }
 
   useEffect(() => {
     Axios.get(`${URL}/api/system`)
     .then((response) => {
+      setStateLoading(false)
       setListaProspectos(response.data); 
     }) 
     .catch((error) => {console.log(error);})
   }, []); 
+
+  const mostrarFiltro = () => {
+    setShowFilter(current => !current)
+  }
 
   const filtroChange = () => { 
     setFilter(selectFilter.value);
@@ -78,7 +81,7 @@ function Prospectos() {
         <div className="p-1 xl:px-4 grid grid-cols-1 xl:grid-cols-4 gap-4 xl:gap-y-12">
           {filtroSinLlamar.map((i) => {
             let estilo = `bg-white shadow-md w-full p-2 rounded xl:rounded-xl border text-black duration-500 hover:shadow-2xl cursor-pointer`;
-            let ruta = `/detalles/?id=${i._id}`;
+            let ruta = `/detalles/?type=prospecto&id=${i._id}`;
             return (
               <NavLink exact to={ruta} key={i._id}>
                 <div className={estilo}>
@@ -96,9 +99,17 @@ function Prospectos() {
   };
 
   return (
-    <div > 
-      {barraOpciones()} 
-      {listarProspectos()}
+    <div>
+      {stateLoading ? (
+        <div className="mt-64 m-auto text-5xl text-center w-3/6">
+          <i className=" animate-spin fas fa-circle-notch"></i>
+        </div>
+      ) : (
+        <div>
+          {barraOpciones()}
+          {listarProspectos()}
+        </div>
+      )}
     </div>
   );
 }

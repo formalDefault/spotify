@@ -136,19 +136,4 @@ export default function Formulario() {
     )
     
 }
-
-async function registrar(data){
-    const { APIDATA } = useContext(ContextStates);  
-    const URL =APIDATA; 
-
-    data = $(data).serialize();
-    const res = await fetch(`${URL}/api/system`, {
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        method: "POST"
-    });
-    const jsonData = await res.json();
-    return jsonData.data;
-}
+ 

@@ -1,29 +1,24 @@
 import React, { useContext } from 'react' 
 import { useLocation, NavLink } from 'react-router-dom'
 import { ContextStates } from "./context/Estados";   
-import Axios from 'axios'; 
+import Axios from 'axios';  
+import Pendientes from './Pendientes';
+const estilo = 'text-black bg-white py-2 px-4 rounded-md border-b-2 border-yellow-500 shadow-md';
+const telefono = () => window.open(`tel:+52${tarjeta.telefono}`); 
 
-function vistaTarjeta(props) {
 
+function vistaProspectos(props) { 
     const { listaProspectos } = useContext(ContextStates);
-    const { APIDATA } = useContext(ContextStates);
-
+    const { APIDATA } = useContext(ContextStates); 
     const buscador = (id) => listaProspectos.find(i => i._id === id);
-
-    const useQuery = () => {return new URLSearchParams(useLocation().search);};
-
+    const useQuery = () => {return new URLSearchParams(useLocation().search)};
     let query = useQuery();
-
-    let tarjeta = buscador(query.get("id"));
-
-    const estilo = 'text-black bg-white py-2 px-4 rounded-md border-b-2 border-yellow-500 shadow-md';
-    
-    const telefono = () => window.open(`tel:+52${tarjeta.telefono}`); 
+    let tarjeta = buscador(query.get("id"));  
     
     const apiUpdate = (accion, state) => {
         const body = tarjeta; 
         Axios.put(`${APIDATA}/api/system/${accion}/${tarjeta._id}/${state}`, body )
-            .then(window.location.assign('/'))
+            .then(window.location.assign('/prospectos'))
             .catch((err) => console.log('hubo un error ' + err));
     }
 
@@ -33,7 +28,7 @@ function vistaTarjeta(props) {
                 <div className="border-b shadow-xl bg-gray-50 mt-6 p-4 xl:w-8/12 xl:m-auto xl:rounded-2xl xl:border xl:bg-white xl:mt-14">
                     <div className="text-center pb-4">
                         <b>Prospecto</b>
-                        <NavLink exact to="/" className="bg-red-500 text-white px-2 rounded-full float-right"><i className=" fas fa-times "></i></NavLink>
+                        <NavLink exact to="/prospectos" className="bg-red-500 text-white px-2 rounded-full float-right"><i className=" fas fa-times "></i></NavLink>
                     </div>
                     <div className="grid grid-cols-1 gap-4">
                         <div>
@@ -73,6 +68,51 @@ function vistaTarjeta(props) {
     return (
         <div>
             {TarjetaEstilo()}
+        </div>
+    )
+}
+
+function vistaPendientes() {
+    const { APIDATA } = useContext(ContextStates); 
+    
+    const Tarjeta = () => {
+        return (
+          <div data-aos="fade-right" className="xl:w-4/12 bg-white w-screen fixed">
+            <div className="mt-6 xl:m-0 pb-1 bg-gray-900 text-white px-4 border-b-4 border-red-600 flex justify-between ">
+              <h1>Vencimiento</h1>
+              <NavLink exact to="/" className="bg-green-500 text-white px-2 rounded-full"><i className=" fas fa-times"></i></NavLink>
+            </div>
+            <div className="xl:border shadow-xl p-4 xl:bg-white xl:rounded-br-2xl">
+              <div className=""> 
+                <b>Titulo</b>
+                <hr className="xl:w-4/12" />
+                <h1 className="">Descripcion</h1> 
+              </div> 
+            </div>
+          </div>
+        );
+    } 
+
+    return (
+        <div>
+            <div className="z-50">{Tarjeta()}</div>
+            <div className="z-10"><Pendientes/></div>
+        </div>
+    )
+}
+
+function vistaTarjeta() {
+    const useQuery = () => new URLSearchParams(useLocation().search); 
+    const switchFunciones = () => {
+        if(useQuery().get("type") == 'pendiente'){
+            return vistaPendientes();
+        } else if(useQuery().get("type") == 'prospecto') {
+            return vistaProspectos();
+        }
+    }
+    return (
+        <div>
+            {switchFunciones()}
         </div>
     )
 }

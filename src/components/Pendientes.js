@@ -20,21 +20,21 @@ function Pendientes() {
         return normal;
       }
     } 
- 
-    const TarjetasResponsive = () => {
+
+    const Tarjetas = () => {
       return (
         <div className="px-4">
           <div className="p-1 grid grid-cols-1 xl:grid-cols-4 gap-4">
             {lista.map((i) => { 
               let estilo = `duration-500 hover:shadow-2xl cursor-pointer border w-full p-2 rounded-lg ${jerarquizacion(i.clasificacion)}`; 
-              let ruta = `/detalles/?id=${i._id}`;
-              return (
+              let ruta = `/detalles/?type=pendiente&id=${i._id}`;
+              return ( 
                 <NavLink key={i._id} exact to={ruta}> 
-                  <div data-aos="zoom-in">
+                  <div>
                     <div className={estilo}>
-                      <div className="flex justify-between">
-                        <b>{i.nombreNegocio}</b>
-                        <i className="p-1 fas fa-times"></i>
+                      <div className="flex justify-between"> 
+                        <i className="p-1 fas fa-check"></i>
+                        <b>{i.nombreNegocio}</b>  
                       </div>
                     </div>
                   </div>
@@ -50,7 +50,7 @@ function Pendientes() {
       if (lista.length != 0) { 
         return (
           <div> 
-            {TarjetasResponsive()}
+            {Tarjetas()}
           </div>
         );
       } else {

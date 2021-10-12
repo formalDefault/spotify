@@ -4,6 +4,7 @@ export const ContextStates = React.createContext();
 function Estados(props) {
     const [stateMenu, setStateMenu] = useState(false); 
     const [stateFormulario, setStateFormulario] =  useState(false); 
+    const [stateLoading, setStateLoading] =  useState(true); 
     const [listaProspectos, setListaProspectos] = useState([]); 
     const [filterOpc, setFilter]  = useState('sin llamar');
     const [showFilter, setShowFilter] =  useState(false);
@@ -21,7 +22,9 @@ function Estados(props) {
                 filterOpc, 
                 setFilter, 
                 showFilter, 
-                setShowFilter
+                setShowFilter,
+                stateLoading, 
+                setStateLoading
             }}>
             {props.children}
         </ContextStates.Provider>
